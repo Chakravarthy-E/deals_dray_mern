@@ -31,6 +31,23 @@ const createEmployee = async (req, res) => {
   });
 };
 
+const getEmployees = async (req, res) => {
+  const list = await Employee.find().populate("employeeID");
+  const employees = list.map((item) => {
+    return {
+      id: item._id,
+      name: item.name,
+      email: item.email,
+      mobile: item.mobile,
+      designation: item.designation,
+      gender: item.gender,
+      course: item.course,
+      image: item.image,
+    };
+  });
+  res.json({ employees });
+};
+
 const updateEmployee = async (req, res) => {
   const { id } = req.params;
   const { name, email, mobile, designation, gender, course, image } = req.body;
@@ -58,4 +75,4 @@ const updateEmployee = async (req, res) => {
   }
 };
 
-module.exports = { createEmployee, updateEmployee };
+module.exports = { createEmployee, updateEmployee, getEmployees };
