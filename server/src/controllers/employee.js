@@ -2,7 +2,8 @@ const { response } = require("express");
 const Employee = require("../models/employe");
 
 const createEmployee = async (req, res) => {
-  const { name, email, mobile, designation, gender, course, image } = req.body;
+  const { name, email, mobile, designation, gender, course, image, createdAt } =
+    req.body;
 
   const existingEmployee = await Employee.findOne({ email });
   if (existingEmployee) {
@@ -16,6 +17,7 @@ const createEmployee = async (req, res) => {
     gender,
     course,
     image,
+    createdAt,
   });
   res.status(201).json({
     employee: {
@@ -27,8 +29,22 @@ const createEmployee = async (req, res) => {
       gender,
       course,
       image,
+      createdAt,
     },
   });
+};
+
+const getEmployeeById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const employee = await Employee.findById(id);
+    if (!employee) {
+      return res.status(404).json({ message: "Employee not found" });
+    }
+    res.json({ employee });
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 
 const getEmployees = async (req, res) => {
@@ -43,16 +59,33 @@ const getEmployees = async (req, res) => {
       gender: item.gender,
       course: item.course,
       image: item.image,
+      createdAt: item.createdAt,
     };
   });
   res.json({ employees });
+};
+
+const deleteEmployee = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const employee = await Employee.findByIdAndDelete(id);
+    if (!employee) {
+      return res.status(404).json({ message: "Employee Id Not Found" });
+    }
+
+    res.json({
+      message: "Employee successfully deleted",
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 
 const updateEmployee = async (req, res) => {
   const { id } = req.params;
   const { name, email, mobile, designation, gender, course, image } = req.body;
   try {
-    const employee = await Employee.findById(id);
+    const employee = await Employee.findByIdAndUpdate(id);
     if (!employee) {
       return res.status(404).json({ message: "Employee not found" });
     }
@@ -75,4 +108,10 @@ const updateEmployee = async (req, res) => {
   }
 };
 
-module.exports = { createEmployee, updateEmployee, getEmployees };
+module.exports = {
+  createEmployee,
+  updateEmployee,
+  getEmployees,
+  getEmployeeById,
+  deleteEmployee,
+};

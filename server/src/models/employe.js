@@ -35,6 +35,7 @@ const EmployeeSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    createdAt: Date,
   },
   { timestamps: true }
 );

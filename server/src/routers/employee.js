@@ -3,12 +3,16 @@ const {
   createEmployee,
   updateEmployee,
   getEmployees,
+  getEmployeeById,
+  deleteEmployee,
 } = require("../controllers/employee");
 
 const router = Router();
 
 router.post("/create", createEmployee);
 router.get("/", getEmployees);
-router.put("/update/:id", updateEmployee);
+router.get("/:id", getEmployeeById);
+router.put("/:id", updateEmployee);
+router.delete("/:id", deleteEmployee);
 
 module.exports = router;
