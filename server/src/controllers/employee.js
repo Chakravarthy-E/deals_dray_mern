@@ -4,11 +4,25 @@ const Employee = require("../models/employe");
 const createEmployee = async (req, res) => {
   const { name, email, mobile, designation, gender, course, image, createdAt } =
     req.body;
+  if (!name || !email || !mobile || !designation || !gender || !course) {
+    return res.status(400).json({ message: "Missing required fields" });
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ message: "Invalid email format" });
+  }
+
+  const mobileRegex = /^\d{10}$/;
+  if (!mobileRegex.test(mobile)) {
+    return res.status(400).json({ message: "Invalid mobile number format" });
+  }
 
   const existingEmployee = await Employee.findOne({ email });
   if (existingEmployee) {
     return res.status(403).json({ message: "Employee already exists" });
   }
+
   const employee = await Employee.create({
     name,
     email,
@@ -19,6 +33,7 @@ const createEmployee = async (req, res) => {
     image,
     createdAt,
   });
+
   res.status(201).json({
     employee: {
       id: employee._id,

@@ -6,6 +6,14 @@ const EditEmployee = ({ open, close, editId }) => {
   console.log(editId);
   const [editEmployee, setEditEmployee] = useState(false);
   const [getEmployeeDetails, setGetEmployeeDetails] = useState(true);
+  const [employeeData, setEmployeeData] = useState({
+    name: "",
+    email: "",
+    mobile: "",
+    gender: "",
+    course: "",
+    designation: "",
+  });
   const [addEmployee, setAddEmployee] = useState({
     name: "",
     email: "",
@@ -50,14 +58,15 @@ const EditEmployee = ({ open, close, editId }) => {
           `${apiList.GET_EMPLOYEE_BY_ID}/${editId}`
         );
         if (response.status === 200) {
-          setAddEmployee({
-            name: response.data.name,
-            email: response.data.email,
-            mobile: response.data.mobile,
-            course: response.data.course,
-            gender: response.data.gender,
-            designation: response.data.designation,
+          setEmployeeData({
+            name: response.data.employee.name,
+            email: response.data.employee.email,
+            mobile: response.data.employee.mobile,
+            course: response.data.employee.course,
+            gender: response.data.employee.gender,
+            designation: response.data.employee.designation,
           });
+          console.log(employeeData);
         } else {
           alert("failed to fetch employee");
         }
@@ -94,7 +103,7 @@ const EditEmployee = ({ open, close, editId }) => {
                   type="text"
                   name="name"
                   className="px-1 py-2 border  rounded-lg w-full  outline-none "
-                  value={addEmployee.name}
+                  placeholder={employeeData.name}
                   onChange={(ev) => {
                     addEmployeeChangeHandler(ev);
                   }}
@@ -108,7 +117,7 @@ const EditEmployee = ({ open, close, editId }) => {
                   type="email"
                   name="email"
                   className="px-1 py-2 border  rounded-lg w-full  outline-none "
-                  value={addEmployee.email}
+                  placeholder={employeeData.email}
                   onChange={(ev) => {
                     addEmployeeChangeHandler(ev);
                   }}
@@ -122,7 +131,7 @@ const EditEmployee = ({ open, close, editId }) => {
                   type="tel"
                   name="mobile"
                   className="px-1 py-2 border  rounded-lg w-full  outline-none "
-                  value={addEmployee.mobile}
+                  placeholder={employeeData.mobile}
                   onChange={(ev) => {
                     addEmployeeChangeHandler(ev);
                   }}
@@ -136,7 +145,7 @@ const EditEmployee = ({ open, close, editId }) => {
                   type="text"
                   name="gender"
                   className="px-1 py-2 border  rounded-lg w-full  outline-none "
-                  value={addEmployee.gender}
+                  placeholder={employeeData.gender}
                   onChange={(ev) => {
                     addEmployeeChangeHandler(ev);
                   }}
@@ -150,7 +159,7 @@ const EditEmployee = ({ open, close, editId }) => {
                   type="text"
                   name="course"
                   className="px-1 py-2 border  rounded-lg w-full  outline-none "
-                  value={addEmployee.course}
+                  placeholder={employeeData.course}
                   onChange={(ev) => {
                     addEmployeeChangeHandler(ev);
                   }}
@@ -163,8 +172,8 @@ const EditEmployee = ({ open, close, editId }) => {
                 <input
                   type="text"
                   name="designation"
+                  placeholder={employeeData.designation}
                   className="px-1 py-2 border  rounded-lg w-full  outline-none "
-                  value={addEmployee.designation}
                   onChange={(ev) => {
                     addEmployeeChangeHandler(ev);
                   }}

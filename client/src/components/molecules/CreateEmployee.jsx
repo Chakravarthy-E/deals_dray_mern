@@ -12,7 +12,58 @@ const CreateEmployee = ({ open, close }) => {
     designation: "",
   });
 
+  const [error, seterror] = useState({
+    nameError: "",
+    emailError: "",
+    mobileError: "",
+    genderError: "",
+    courseError: "",
+    designationError: "",
+  });
+
+  const validations = () => {
+    if (addEmployee.name === "") {
+      seterror((prev) => ({
+        ...prev,
+        nameError: "Please add a name",
+      }));
+    }
+    if (addEmployee.email === "") {
+      seterror((prev) => ({
+        ...prev,
+        emailError: "Please add a email",
+      }));
+    }
+    if (addEmployee.gender === "") {
+      seterror((prev) => ({
+        ...prev,
+        genderError: "Please add a gender",
+      }));
+    }
+    if (addEmployee.course === "") {
+      seterror((prev) => ({
+        ...prev,
+        courseError: "Please add a course",
+      }));
+    }
+    if (addEmployee.designation === "") {
+      seterror((prev) => ({
+        ...prev,
+        designationError: "Please add a designation",
+      }));
+    }
+    return;
+  };
+
+  const addEmployeeChangeHandler = (ev) => {
+    setAddEmployee((prev) => ({
+      ...prev,
+      [ev.target.name]: ev.target.value,
+    }));
+  };
+
   const handleCreateEmployee = async () => {
+    validations();
     try {
       const response = await client.post(apiList.EMPLOYEE_CREATE, addEmployee);
       if (response.status === 201) {
@@ -47,16 +98,13 @@ const CreateEmployee = ({ open, close }) => {
                 </label>
                 <input
                   type="text"
+                  name="name"
                   className="px-1 py-2 border  rounded-lg w-full  outline-none "
                   value={addEmployee.name}
-                  onChange={(e) =>
-                    setAddEmployee((data) => ({
-                      ...data,
-                      name: e.target.value,
-                    }))
-                  }
+                  onChange={(e) => addEmployeeChangeHandler(e)}
                 />
               </div>
+              {error.nameError && error.nameError}
               <div className="flex items-center">
                 <label htmlFor="email" className="w-44">
                   Email
@@ -65,14 +113,11 @@ const CreateEmployee = ({ open, close }) => {
                   type="email"
                   className="px-1 py-2 border  rounded-lg w-full  outline-none "
                   value={addEmployee.email}
-                  onChange={(e) =>
-                    setAddEmployee((data) => ({
-                      ...data,
-                      email: e.target.value,
-                    }))
-                  }
+                  name="email"
+                  onChange={(e) => addEmployeeChangeHandler(e)}
                 />
               </div>
+              {error.emailError && error.emailError}
               <div className="flex items-center">
                 <label htmlFor="mobile" className="w-44">
                   Mobile
@@ -81,14 +126,11 @@ const CreateEmployee = ({ open, close }) => {
                   type="tel"
                   className="px-1 py-2 border  rounded-lg w-full  outline-none "
                   value={addEmployee.mobile}
-                  onChange={(e) =>
-                    setAddEmployee((data) => ({
-                      ...data,
-                      mobile: e.target.value,
-                    }))
-                  }
+                  name="mobile"
+                  onChange={(e) => addEmployeeChangeHandler(e)}
                 />
               </div>
+              {error.mobileError && error.mobileError}
               <div className="flex items-center">
                 <label htmlFor="gender" className="w-44">
                   Gender
@@ -97,14 +139,11 @@ const CreateEmployee = ({ open, close }) => {
                   type="text"
                   className="px-1 py-2 border  rounded-lg w-full  outline-none "
                   value={addEmployee.gender}
-                  onChange={(e) =>
-                    setAddEmployee((data) => ({
-                      ...data,
-                      gender: e.target.value,
-                    }))
-                  }
+                  name="gender"
+                  onChange={(e) => addEmployeeChangeHandler(e)}
                 />
               </div>
+              {error.genderError && error.genderError}
               <div className="flex items-center">
                 <label htmlFor="course" className="w-44">
                   Course
@@ -113,14 +152,11 @@ const CreateEmployee = ({ open, close }) => {
                   type="text"
                   className="px-1 py-2 border  rounded-lg w-full  outline-none "
                   value={addEmployee.course}
-                  onChange={(e) =>
-                    setAddEmployee((data) => ({
-                      ...data,
-                      course: e.target.value,
-                    }))
-                  }
+                  name="course"
+                  onChange={(e) => addEmployeeChangeHandler(e)}
                 />
               </div>
+              {error.courseError && error.courseError}
               <div className="flex items-center">
                 <label htmlFor="desgnination" className="w-44">
                   Desgination
@@ -129,14 +165,11 @@ const CreateEmployee = ({ open, close }) => {
                   type="text"
                   className="px-1 py-2 border  rounded-lg w-full  outline-none "
                   value={addEmployee.designation}
-                  onChange={(e) =>
-                    setAddEmployee((data) => ({
-                      ...data,
-                      designation: e.target.value,
-                    }))
-                  }
+                  name="designation"
+                  onChange={(e) => addEmployeeChangeHandler(e)}
                 />
               </div>
+              {error.designationError && error.designationError}
             </div>
             <button
               onClick={handleCreateEmployee}

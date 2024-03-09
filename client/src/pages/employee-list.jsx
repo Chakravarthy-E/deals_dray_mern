@@ -3,6 +3,7 @@ import client, { apiList } from "../utils/apiSerives";
 import { MdDelete, MdOutlineEditNote } from "react-icons/md";
 import CreateEmployee from "../components/molecules/CreateEmployee";
 import EditEmployee from "../components/molecules/EditEmployee";
+import moment from "moment";
 
 const EmployeeList = () => {
   const [invokeEmployees, setInvokeEmployees] = useState(true);
@@ -10,7 +11,6 @@ const EmployeeList = () => {
   const [createEmployeeModel, setCreateEmployeeModel] = useState(false);
   const [editId, setEditId] = useState(null);
   const [editEmployeeModal, setEditEmployeeModal] = useState(false);
-  console.log(editId);
 
   useEffect(() => {
     async function fetchEmployees() {
@@ -112,7 +112,9 @@ const EmployeeList = () => {
                     <td className="text-center px-4 py-4 ">
                       {emp.designation}
                     </td>
-                    <td className="text-center px-4 py-4 ">{emp?.createdAt}</td>
+                    <td className="text-center px-4 py-4 ">
+                      {moment(emp.createdAt).format("DD.MM.YYYY")}
+                    </td>
                     <td className="text-center px-4 py-4 ">
                       <div className="flex flex-row items-center space-x-3">
                         <MdOutlineEditNote

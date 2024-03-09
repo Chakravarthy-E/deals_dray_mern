@@ -13,8 +13,13 @@ export default function Signin() {
     email: "",
     password: "",
   });
+  const [error, seterror] = useState({});
 
   async function handleSubmit() {
+    if (!data.email || !data.password) {
+      seterror({ message: "Please fill in all required fields" });
+      return;
+    }
     try {
       const response = await client.post(apiList.SIGNIN, data);
       console.log(response);
@@ -34,32 +39,37 @@ export default function Signin() {
         Login With Your Accout
       </h1>
       <div className="my-3 w-96 space-y-3 rounded border px-10 py-10 shadow">
-        <div className="space-x-3">
-          <label htmlFor="email">Email</label>
+        <div className=" flex items-center space-x-3">
+          <label htmlFor="email" className="w-40">
+            Email
+          </label>
           <input
             type="email"
             name="email"
             placeholder="enter your email address"
-            className="border px-3 py-1 rounded-md"
+            className="border px-3 py-1 rounded-md w-full"
             value={data.email}
             onChange={(e) =>
               setData((prev) => ({ ...prev, email: e.target.value }))
             }
           />
         </div>
-        <div className="space-x-3">
-          <label htmlFor="password">Password</label>
+        <div className="space-x-3 flex items-center">
+          <label htmlFor="password" className="w-40">
+            Password
+          </label>
           <input
             type="password"
             name="password"
             placeholder="enter your password"
-            className="border px-3 py-1 rounded-md"
+            className="border px-3 py-1 rounded-md w-full"
             value={data.password}
             onChange={(e) =>
               setData((prev) => ({ ...prev, password: e.target.value }))
             }
           />
         </div>
+        {error.message && <p className="text-red-500">{error.message}</p>}
         <button
           onClick={handleSubmit}
           type="submit"

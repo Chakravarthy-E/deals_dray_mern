@@ -10,6 +10,8 @@ export default function Signup() {
     password: "",
   });
 
+
+
   const handleSignUp = async () => {
     try {
       const response = await client.post(apiList.SIGNUP, data);
@@ -79,7 +81,7 @@ export default function Signup() {
             className="text-blue-500 hover:underline cursor-pointer"
             onClick={() => router.push("/auth/sign-in")}
           >
-            Sign Up
+            Signin
           </span>
         </p>
       </div>
