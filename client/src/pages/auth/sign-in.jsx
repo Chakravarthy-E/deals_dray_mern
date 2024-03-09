@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import client, { apiList } from "../../utils/apiSerives";
 import { useState } from "react";
@@ -32,6 +32,12 @@ export default function Signin() {
       console.log(error);
     }
   }
+  const token = Cookies.get("AUTH");
+  useEffect(() => {
+    if (token) {
+      router.push("/");
+    }
+  }, [token]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -73,7 +79,7 @@ export default function Signin() {
         <button
           onClick={handleSubmit}
           type="submit"
-          className="px-3 py-1 rounded-md bg-slate-800 text-white text-center"
+          className="px-3 py-1 rounded-md bg-slate-800 text-white text-center w-full"
         >
           Login
         </button>

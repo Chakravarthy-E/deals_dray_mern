@@ -169,7 +169,6 @@ const CreateEmployee = ({ open, close }) => {
                   onChange={(e) => addEmployeeChangeHandler(e)}
                 />
               </div>
-              {error.designationError && error.designationError}
             </div>
             <button
               onClick={handleCreateEmployee}

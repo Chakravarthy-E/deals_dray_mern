@@ -57,7 +57,7 @@ const EmployeeList = () => {
   return (
     <>
       <div className="py-20">
-        <div className="flex justify-between items-center px-5 py-1">
+        <div className="flex justify-between items-center px-5 py-2">
           <p className="text-xl font-semibold my-1">Employees List</p>
           <button
             className="px-3 py-1 bg-gray-800 text-white rounded-md"
@@ -69,7 +69,7 @@ const EmployeeList = () => {
         <div className="h-full overflow-y-auto">
           <table className="w-full text-sm text-left">
             <thead className="sticky top-0 z-10 border ">
-              <tr>
+              <tr className="bg-slate-200">
                 <th scope="col" className="text-center px-4 py-3">
                   unique Id
                 </th>
@@ -86,10 +86,10 @@ const EmployeeList = () => {
                   Gender
                 </th>
                 <th scope="col" className="text-center px-4 py-3">
-                  Course
+                  Desgination
                 </th>
                 <th scope="col" className="text-center px-4 py-3">
-                  Desgination
+                  Course
                 </th>
                 <th scope="col" className="text-center px-4 py-3">
                   Created At
@@ -102,16 +102,19 @@ const EmployeeList = () => {
             <tbody>
               {data?.map((emp, index) => {
                 return (
-                  <tr className="font-semibold text-[#707070]" key={index}>
+                  <tr
+                    className="font-semibold text-[#707070] border"
+                    key={index}
+                  >
                     <td className="text-center px-4 py-4 ">{index + 1}</td>
                     <td className="text-center px-4 py-4 ">{emp.name}</td>
                     <td className="text-center px-4 py-4 ">{emp.email}</td>
                     <td className="text-center px-4 py-4 ">{emp.mobile}</td>
                     <td className="text-center px-4 py-4 ">{emp.gender}</td>
-                    <td className="text-center px-4 py-4 ">{emp.course}</td>
                     <td className="text-center px-4 py-4 ">
                       {emp.designation}
                     </td>
+                    <td className="text-center px-4 py-4 ">{emp.course}</td>
                     <td className="text-center px-4 py-4 ">
                       {moment(emp.createdAt).format("DD.MM.YYYY")}
                     </td>

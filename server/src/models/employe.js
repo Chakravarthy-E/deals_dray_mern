@@ -29,7 +29,8 @@ const EmployeeSchema = new Schema(
       required: true,
     },
     image: {
-      type: String,
+      type: Object,
+      url: String,
     },
     employeeID: {
       type: Schema.Types.ObjectId,
