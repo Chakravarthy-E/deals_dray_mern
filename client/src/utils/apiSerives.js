@@ -1,4 +1,4 @@
-import axios, { CreateAxiosDefaults } from "axios";
+import axios from "axios";
 import { Keys, getFromLocalStorage } from "./storage";
 const client = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASEURL,

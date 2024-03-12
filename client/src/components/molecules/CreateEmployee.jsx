@@ -7,8 +7,15 @@ const CreateEmployee = ({ open, close }) => {
     name: "",
     email: "",
     mobile: "",
-    gender: "",
-    course: "",
+    gender: {
+      male: "male",
+      female: "female",
+    },
+    course: {
+      mca: "mca",
+      bca: "bca",
+      bsc: "bsc",
+    },
     designation: "",
   });
 
@@ -132,42 +139,70 @@ const CreateEmployee = ({ open, close }) => {
               </div>
               {error.mobileError && error.mobileError}
               <div className="flex items-center">
-                <label htmlFor="gender" className="w-44">
-                  Gender
-                </label>
+                <p>Select Gender</p>
                 <input
-                  type="text"
-                  className="px-1 py-2 border  rounded-lg w-full  outline-none "
-                  value={addEmployee.gender}
+                  type="radio"
+                  id="gender"
                   name="gender"
+                  value={addEmployee.gender.male}
                   onChange={(e) => addEmployeeChangeHandler(e)}
                 />
+                  <label htmlFor="course">Male</label>
+                <input
+                  type="radio"
+                  id="gender"
+                  name="gender"
+                  value={addEmployee.gender.female}
+                  onChange={(e) => addEmployeeChangeHandler(e)}
+                />
+                  <label htmlFor="course">Female</label>
               </div>
               {error.genderError && error.genderError}
-              <div className="flex items-center">
-                <label htmlFor="course" className="w-44">
-                  Course
-                </label>
-                <input
-                  type="text"
-                  className="px-1 py-2 border  rounded-lg w-full  outline-none "
-                  value={addEmployee.course}
-                  name="course"
-                  onChange={(e) => addEmployeeChangeHandler(e)}
-                />
+              <div className="flex items-start flex-col">
+                <p>Select Course</p>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="course"
+                    name="course"
+                    value={addEmployee.course.mca}
+                    onChange={(e) => addEmployeeChangeHandler(e)}
+                  />
+                  <label htmlFor="course">MCA</label>
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="course"
+                    name="course"
+                    value={addEmployee.course.bsc}
+                    onChange={(e) => addEmployeeChangeHandler(e)}
+                  />
+                  <label htmlFor="course">BCA</label>
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="course"
+                    name="course"
+                    value={addEmployee.course.bsc}
+                    onChange={(e) => addEmployeeChangeHandler(e)}
+                  />
+                  <label htmlFor="course">BSC</label>
+                </div>
               </div>
               {error.courseError && error.courseError}
               <div className="flex items-center">
-                <label htmlFor="desgnination" className="w-44">
-                  Desgination
-                </label>
-                <input
-                  type="text"
-                  className="px-1 py-2 border  rounded-lg w-full  outline-none "
-                  value={addEmployee.designation}
+                <p>Select Desgnination</p>
+                <select
                   name="designation"
+                  id="designation"
                   onChange={(e) => addEmployeeChangeHandler(e)}
-                />
+                >
+                  <option value="HR">HR</option>
+                  <option value="Manager">Manager</option>
+                  <option value="Sales">Sales</option>
+                </select>
               </div>
             </div>
             <button

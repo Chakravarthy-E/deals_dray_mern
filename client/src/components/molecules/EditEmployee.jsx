@@ -10,8 +10,15 @@ const EditEmployee = ({ open, close, editId }) => {
     name: "",
     email: "",
     mobile: "",
-    gender: "",
-    course: "",
+    gender: {
+      male: "male",
+      female: "female",
+    },
+    course: {
+      mca: "mca",
+      bca: "bca",
+      bsc: "bsc",
+    },
     designation: "",
   });
   const [addEmployee, setAddEmployee] = useState({
@@ -102,7 +109,7 @@ const EditEmployee = ({ open, close, editId }) => {
                 <input
                   type="text"
                   name="name"
-                  className="px-1 py-2 border  rounded-lg w-full  outline-none "
+                  className="px-1 py-2 border placeholder-black  rounded-lg w-full  outline-none "
                   placeholder={employeeData.name}
                   onChange={(ev) => {
                     addEmployeeChangeHandler(ev);
@@ -116,68 +123,96 @@ const EditEmployee = ({ open, close, editId }) => {
                 <input
                   type="email"
                   name="email"
-                  className="px-1 py-2 border  rounded-lg w-full  outline-none "
+                  className="px-1 py-2 border placeholder-black   rounded-lg w-full  outline-none "
                   placeholder={employeeData.email}
                   onChange={(ev) => {
                     addEmployeeChangeHandler(ev);
                   }}
                 />
               </div>
-              <div className="flex items-center">
+              <div className="flex items-start">
                 <label htmlFor="mobile" className="w-44">
                   Mobile
                 </label>
                 <input
                   type="tel"
                   name="mobile"
-                  className="px-1 py-2 border  rounded-lg w-full  outline-none "
+                  className="px-1 py-2 border placeholder-black   rounded-lg w-full  outline-none "
                   placeholder={employeeData.mobile}
                   onChange={(ev) => {
                     addEmployeeChangeHandler(ev);
                   }}
                 />
               </div>
-              <div className="flex items-center">
-                <label htmlFor="gender" className="w-44">
-                  Gender
-                </label>
-                <input
-                  type="text"
-                  name="gender"
-                  className="px-1 py-2 border  rounded-lg w-full  outline-none "
-                  placeholder={employeeData.gender}
-                  onChange={(ev) => {
-                    addEmployeeChangeHandler(ev);
-                  }}
-                />
+              <div className="flex items-start flex-col">
+                <p>Select Gender</p>
+                <div>
+                  <input
+                    type="radio"
+                    id="gender"
+                    name="gender"
+                    value={employeeData.gender.male}
+                    onChange={(e) => addEmployeeChangeHandler(e)}
+                  />
+                    <label htmlFor="course">Male</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    id="gender"
+                    name="gender"
+                    value={employeeData.gender.female}
+                    onChange={(e) => addEmployeeChangeHandler(e)}
+                  />
+                    <label htmlFor="course">Female</label>
+                </div>
               </div>
-              <div className="flex items-center">
-                <label htmlFor="course" className="w-44">
-                  Course
-                </label>
-                <input
-                  type="text"
-                  name="course"
-                  className="px-1 py-2 border  rounded-lg w-full  outline-none "
-                  placeholder={employeeData.course}
-                  onChange={(ev) => {
-                    addEmployeeChangeHandler(ev);
-                  }}
-                />
+
+              <div className="flex items-start flex-col">
+                <p>Select Course</p>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="course"
+                    name="course"
+                    value={employeeData.course.mca}
+                    onChange={(e) => addEmployeeChangeHandler(e)}
+                  />
+                  <label htmlFor="course">MCA</label>
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="course"
+                    name="course"
+                    value={employeeData.course.bsc}
+                    onChange={(e) => addEmployeeChangeHandler(e)}
+                  />
+                  <label htmlFor="course">BCA</label>
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="course"
+                    name="course"
+                    value={employeeData.course.bsc}
+                    onChange={(e) => addEmployeeChangeHandler(e)}
+                  />
+                  <label htmlFor="course">BSC</label>
+                </div>
               </div>
+
               <div className="flex items-center">
-                <label htmlFor="desgnination" className="w-44">
-                  Desgination
-                </label>
-                <input
-                  type="text"
+                <p>Select Desgnination</p>
+                <select
                   name="designation"
-                  placeholder={employeeData.designation}
-                  className="px-1 py-2 border  rounded-lg w-full  outline-none "
-                  onChange={(ev) => {
-                    addEmployeeChangeHandler(ev);
-                  }}
-                />
+                  id="designation"
+                  onChange={(e) => addEmployeeChangeHandler(e)}
+                >
+                  <option value="HR">HR</option>
+                  <option value="Manager">Manager</option>
+                  <option value="Sales">Sales</option>
+                </select>
               </div>
             </div>
             <button

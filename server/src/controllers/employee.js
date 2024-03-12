@@ -1,4 +1,3 @@
-const { response } = require("express");
 const Employee = require("../models/employe");
 
 const createEmployee = async (req, res) => {
@@ -11,6 +10,10 @@ const createEmployee = async (req, res) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
     return res.status(400).json({ message: "Invalid email format" });
+  }
+  const existingEmail = await Employee.findOne({ email });
+  if (existingEmail) {
+    return res.status(400).json({ message: "Email Already Exist" });
   }
 
   const mobileRegex = /^\d{10}$/;

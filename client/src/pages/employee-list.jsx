@@ -11,6 +11,7 @@ const EmployeeList = () => {
   const [createEmployeeModel, setCreateEmployeeModel] = useState(false);
   const [editId, setEditId] = useState(null);
   const [editEmployeeModal, setEditEmployeeModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     async function fetchEmployees() {
@@ -54,11 +55,26 @@ const EmployeeList = () => {
     }
   };
 
+  const handleSearchQueary = (e) => {
+    setSearchQuery(e.target.value);
+    setInvokeEmployees(true);
+  };
+
+  const filteredData = data.filter((employee) =>
+    employee.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <>
       <div className="py-20">
         <div className="flex justify-between items-center px-5 py-2">
           <p className="text-xl font-semibold my-1">Employees List</p>
+          <input
+            placeholder="Search Employees"
+            className="border border-gray-500 px-3 py-1"
+            onChange={handleSearchQueary}
+          />
+          <p>Total Count: {filteredData?.length}</p>
           <button
             className="px-3 py-1 bg-gray-800 text-white rounded-md"
             onClick={() => setCreateEmployeeModel(true)}
@@ -100,42 +116,48 @@ const EmployeeList = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.map((emp, index) => {
-                return (
-                  <tr
-                    className="font-semibold text-[#707070] border"
-                    key={index}
-                  >
-                    <td className="text-center px-4 py-4 ">{index + 1}</td>
-                    <td className="text-center px-4 py-4 ">{emp.name}</td>
-                    <td className="text-center px-4 py-4 ">{emp.email}</td>
-                    <td className="text-center px-4 py-4 ">{emp.mobile}</td>
-                    <td className="text-center px-4 py-4 ">{emp.gender}</td>
-                    <td className="text-center px-4 py-4 ">
-                      {emp.designation}
-                    </td>
-                    <td className="text-center px-4 py-4 ">{emp.course}</td>
-                    <td className="text-center px-4 py-4 ">
-                      {moment(emp.createdAt).format("DD.MM.YYYY")}
-                    </td>
-                    <td className="text-center px-4 py-4 ">
-                      <div className="flex flex-row items-center space-x-3">
-                        <MdOutlineEditNote
-                          size={25}
-                          onClick={() => {
-                            setEditEmployeeModal(true);
-                            setEditId(emp.id);
-                          }}
-                        />
-                        <MdDelete
-                          size={25}
-                          onClick={() => handleDeleteEmployee(emp.id)}
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
+              {filteredData.length > 0 ? (
+                filteredData?.map((emp, index) => {
+                  return (
+                    <tr
+                      className="font-semibold text-[#707070] border"
+                      key={index}
+                    >
+                      <td className="text-center px-4 py-4 ">{index + 1}</td>
+                      <td className="text-center px-4 py-4 ">{emp.name}</td>
+                      <td className="text-center px-4 py-4 ">{emp.email}</td>
+                      <td className="text-center px-4 py-4 ">{emp.mobile}</td>
+                      <td className="text-center px-4 py-4 ">{emp.gender}</td>
+                      <td className="text-center px-4 py-4 ">
+                        {emp.designation}
+                      </td>
+                      <td className="text-center px-4 py-4 ">{emp.course}</td>
+                      <td className="text-center px-4 py-4 ">
+                        {moment(emp.createdAt).format("DD.MM.YYYY")}
+                      </td>
+                      <td className="text-center px-4 py-4 ">
+                        <div className="flex flex-row items-center space-x-3">
+                          <MdOutlineEditNote
+                            size={25}
+                            onClick={() => {
+                              setEditEmployeeModal(true);
+                              setEditId(emp.id);
+                            }}
+                          />
+                          <MdDelete
+                            size={25}
+                            onClick={() => handleDeleteEmployee(emp.id)}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <p className="flex items-center justify-center py-3  text-center">
+                  No Data Found
+                </p>
+              )}
             </tbody>
           </table>
         </div>
