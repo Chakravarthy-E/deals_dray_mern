@@ -10,15 +10,8 @@ const EditEmployee = ({ open, close, editId }) => {
     name: "",
     email: "",
     mobile: "",
-    gender: {
-      male: "male",
-      female: "female",
-    },
-    course: {
-      mca: "mca",
-      bca: "bca",
-      bsc: "bsc",
-    },
+    gender: "",
+    course: "",
     designation: "",
   });
   const [addEmployee, setAddEmployee] = useState({
@@ -34,6 +27,13 @@ const EditEmployee = ({ open, close, editId }) => {
     setAddEmployee((prev) => ({
       ...prev,
       [ev.target.name]: ev.target.value,
+    }));
+  };
+
+  const handleGenderChange = (ev) => {
+    setAddEmployee((prev) => ({
+      ...prev,
+      gender: ev.target.value,
     }));
   };
 
@@ -90,137 +90,154 @@ const EditEmployee = ({ open, close, editId }) => {
     <>
       {open && (
         <div className="fixed z-50 inset-0 text-xs bg-opacity-60 bg-black  flex justify-center items-center">
-          <div className="flex flex-col w-[90%] bg-white">
-            <div className="flex flex-row w-full items-center justify-between px-6 py-4   rounded-tr-2xl border-b  rounded-tl-2xl">
-              <div className="flex flex-row items-center space-x-6 ">
-                <h5 className="font-semibold ">Add Employee</h5>
-              </div>
+          <div className="flex flex-col w-[90%] bg-white rounded-xl shadow-lg">
+            <div className="flex items-center justify-between px-6 py-4 bg-gray-200 rounded-t-xl">
+              <h5 className="font-semibold text-lg">Edit Employee</h5>
               <MdClose
                 size={25}
                 onClick={() => close()}
                 className="cursor-pointer"
               />
             </div>
-            <div className="px-10 py-2 space-y-1.5">
+            <div className="p-6 space-y-4">
               <div className="flex items-center">
-                <label htmlFor="name" className="w-44">
+                <label htmlFor="name" className="w-32 font-semibold">
                   Name
                 </label>
                 <input
                   type="text"
                   name="name"
-                  className="px-1 py-2 border placeholder-black  rounded-lg w-full  outline-none "
+                  className="px-3 py-2 border rounded-lg w-full outline-none"
                   placeholder={employeeData.name}
-                  onChange={(ev) => {
-                    addEmployeeChangeHandler(ev);
-                  }}
+                  onChange={(ev) => addEmployeeChangeHandler(ev)}
                 />
               </div>
               <div className="flex items-center">
-                <label htmlFor="email" className="w-44">
+                <label htmlFor="email" className="w-32 font-semibold">
                   Email
                 </label>
                 <input
                   type="email"
                   name="email"
-                  className="px-1 py-2 border placeholder-black   rounded-lg w-full  outline-none "
+                  className="px-3 py-2 border rounded-lg w-full outline-none"
                   placeholder={employeeData.email}
-                  onChange={(ev) => {
-                    addEmployeeChangeHandler(ev);
-                  }}
+                  onChange={(ev) => addEmployeeChangeHandler(ev)}
                 />
               </div>
-              <div className="flex items-start">
-                <label htmlFor="mobile" className="w-44">
+              <div className="flex items-center">
+                <label htmlFor="mobile" className="w-32 font-semibold">
                   Mobile
                 </label>
                 <input
                   type="tel"
                   name="mobile"
-                  className="px-1 py-2 border placeholder-black   rounded-lg w-full  outline-none "
+                  className="px-3 py-2 border rounded-lg w-full outline-none"
                   placeholder={employeeData.mobile}
-                  onChange={(ev) => {
-                    addEmployeeChangeHandler(ev);
-                  }}
+                  onChange={(ev) => addEmployeeChangeHandler(ev)}
                 />
               </div>
-              <div className="flex items-start flex-col">
-                <p>Select Gender</p>
-                <div>
+              <div className="flex flex-col space-y-2">
+                <p className="font-semibold">Gender:</p>
+
+                <div className="flex items-center">
                   <input
                     type="radio"
-                    id="gender"
+                    id="male"
                     name="gender"
-                    value={employeeData.gender.male}
-                    onChange={(e) => addEmployeeChangeHandler(e)}
+                    value="male"
+                    checked={employeeData.gender === "male"}
+                    onChange={handleGenderChange}
+                    className="mr-2 uppercase"
                   />
-                    <label htmlFor="course">Male</label>
+                  <label htmlFor="male">Male</label>
                 </div>
-                <div>
+                <div className="flex items-center">
                   <input
                     type="radio"
-                    id="gender"
+                    id="female"
                     name="gender"
-                    value={employeeData.gender.female}
-                    onChange={(e) => addEmployeeChangeHandler(e)}
+                    value="female"
+                    checked={employeeData.gender === "female"}
+                    onChange={handleGenderChange}
+                    className="mr-2 uppercase"
                   />
-                    <label htmlFor="course">Female</label>
+                  <label htmlFor="female">Female</label>
                 </div>
               </div>
+              <div className="flex flex-col space-y-2">
+                <p className="font-semibold">Course:</p>
 
-              <div className="flex items-start flex-col">
-                <p>Select Course</p>
-                <div>
+                <div className="flex items-center">
                   <input
                     type="checkbox"
-                    id="course"
+                    id="mca"
                     name="course"
-                    value={employeeData.course.mca}
+                    checked={employeeData.course === "mca"}
+                    value="mca"
                     onChange={(e) => addEmployeeChangeHandler(e)}
+                    className="mr-2"
                   />
-                  <label htmlFor="course">MCA</label>
+                  <label htmlFor="mca">MCA</label>
                 </div>
-                <div>
+                <div className="flex items-center">
                   <input
                     type="checkbox"
-                    id="course"
+                    id="bca"
                     name="course"
-                    value={employeeData.course.bsc}
+                    value="bca"
+                    checked={employeeData.course === "bca"}
                     onChange={(e) => addEmployeeChangeHandler(e)}
+                    className="mr-2"
                   />
-                  <label htmlFor="course">BCA</label>
+                  <label htmlFor="bca">BCA</label>
                 </div>
-                <div>
+                <div className="flex items-center">
                   <input
                     type="checkbox"
-                    id="course"
+                    id="bsc"
                     name="course"
-                    value={employeeData.course.bsc}
+                    value="bsc"
+                    checked={employeeData.course === "bsc"}
                     onChange={(e) => addEmployeeChangeHandler(e)}
+                    className="mr-2"
                   />
-                  <label htmlFor="course">BSC</label>
+                  <label htmlFor="bsc">BSC</label>
                 </div>
               </div>
-
-              <div className="flex items-center">
-                <p>Select Desgnination</p>
+              <div className="flex items-center flex-row space-y-2">
+                <p className="font-semibold">Select Designation</p>
                 <select
                   name="designation"
-                  id="designation"
                   onChange={(e) => addEmployeeChangeHandler(e)}
+                  className="px-3 py-2 border rounded-md ml-2"
                 >
-                  <option value="HR">HR</option>
-                  <option value="Manager">Manager</option>
-                  <option value="Sales">Sales</option>
+                  <option
+                    value="HR"
+                    selected={employeeData.designation === "HR"}
+                  >
+                    HR
+                  </option>
+                  <option
+                    value="Manager"
+                    selected={employeeData.designation === "Manager"}
+                  >
+                    Manager
+                  </option>
+                  <option
+                    value="Sales"
+                    selected={employeeData.designation === "Sales"}
+                  >
+                    Sales
+                  </option>
                 </select>
               </div>
+              <button
+                onClick={() => setEditEmployee(true)}
+                className="py-2 bg-gray-800 text-white rounded-lg w-full"
+              >
+                Update
+              </button>
             </div>
-            <button
-              onClick={() => setEditEmployee(true)}
-              className="py-2 w-full bg-gray-800 text-white"
-            >
-              Update
-            </button>
           </div>
         </div>
       )}

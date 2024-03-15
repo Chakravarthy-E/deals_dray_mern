@@ -26,7 +26,6 @@ const EmployeeList = () => {
         console.error("Error fetching employees:", error);
       }
     }
-
     if (invokeEmployees) {
       fetchEmployees();
       setInvokeEmployees(false);
@@ -68,19 +67,23 @@ const EmployeeList = () => {
     <>
       <div className="py-20">
         <div className="flex justify-between items-center px-5 py-2">
-          <p className="text-xl font-semibold my-1">Employees List</p>
-          <input
-            placeholder="Search Employees"
-            className="border border-gray-500 px-3 py-1"
-            onChange={handleSearchQueary}
-          />
-          <p>Total Count: {filteredData?.length}</p>
-          <button
-            className="px-3 py-1 bg-gray-800 text-white rounded-md"
-            onClick={() => setCreateEmployeeModel(true)}
-          >
-            Create Employee
-          </button>
+          <div className="flex space-x-3">
+            <p className="text-xl font-semibold my-1">Employees List</p>
+            <input
+              placeholder="Search Employees"
+              className="border border-gray-500 px-3 py-1 rounded-lg"
+              onChange={handleSearchQueary}
+            />
+          </div>
+          <div className="flex space-x-3 items-center">
+            <p>Total Count: {filteredData?.length}</p>
+            <button
+              className="px-3 py-1 bg-gray-800 text-white rounded-md"
+              onClick={() => setCreateEmployeeModel(true)}
+            >
+              Create Employee
+            </button>
+          </div>
         </div>
         <div className="h-full overflow-y-auto">
           <table className="w-full text-sm text-left">
@@ -127,11 +130,15 @@ const EmployeeList = () => {
                       <td className="text-center px-4 py-4 ">{emp.name}</td>
                       <td className="text-center px-4 py-4 ">{emp.email}</td>
                       <td className="text-center px-4 py-4 ">{emp.mobile}</td>
-                      <td className="text-center px-4 py-4 ">{emp.gender}</td>
-                      <td className="text-center px-4 py-4 ">
+                      <td className="text-center px-4 py-4 uppercase ">
+                        {emp.gender}
+                      </td>
+                      <td className="text-center px-4 py-4 uppercase ">
                         {emp.designation}
                       </td>
-                      <td className="text-center px-4 py-4 ">{emp.course}</td>
+                      <td className="text-center px-4 py-4 uppercase ">
+                        {emp.course}
+                      </td>
                       <td className="text-center px-4 py-4 ">
                         {moment(emp.createdAt).format("DD.MM.YYYY")}
                       </td>

@@ -19,49 +19,6 @@ const CreateEmployee = ({ open, close }) => {
     designation: "",
   });
 
-  const [error, seterror] = useState({
-    nameError: "",
-    emailError: "",
-    mobileError: "",
-    genderError: "",
-    courseError: "",
-    designationError: "",
-  });
-
-  const validations = () => {
-    if (addEmployee.name === "") {
-      seterror((prev) => ({
-        ...prev,
-        nameError: "Please add a name",
-      }));
-    }
-    if (addEmployee.email === "") {
-      seterror((prev) => ({
-        ...prev,
-        emailError: "Please add a email",
-      }));
-    }
-    if (addEmployee.gender === "") {
-      seterror((prev) => ({
-        ...prev,
-        genderError: "Please add a gender",
-      }));
-    }
-    if (addEmployee.course === "") {
-      seterror((prev) => ({
-        ...prev,
-        courseError: "Please add a course",
-      }));
-    }
-    if (addEmployee.designation === "") {
-      seterror((prev) => ({
-        ...prev,
-        designationError: "Please add a designation",
-      }));
-    }
-    return;
-  };
-
   const addEmployeeChangeHandler = (ev) => {
     setAddEmployee((prev) => ({
       ...prev,
@@ -70,7 +27,6 @@ const CreateEmployee = ({ open, close }) => {
   };
 
   const handleCreateEmployee = async () => {
-    validations();
     try {
       const response = await client.post(apiList.EMPLOYEE_CREATE, addEmployee);
       if (response.status === 201) {
@@ -87,127 +43,135 @@ const CreateEmployee = ({ open, close }) => {
     <>
       {open && (
         <div className="fixed z-50 inset-0 text-xs bg-opacity-60 bg-black  flex justify-center items-center">
-          <div className="flex flex-col w-[90%] bg-white">
-            <div className="flex flex-row w-full items-center justify-between px-6 py-4   rounded-tr-2xl border-b  rounded-tl-2xl">
-              <div className="flex flex-row items-center space-x-6 ">
-                <h5 className="font-semibold ">Add Employee</h5>
-              </div>
+          <div className="flex flex-col w-[90%] bg-white rounded-lg shadow-md">
+            <div className="flex flex-row w-full items-center justify-between px-6 py-4 bg-gray-200 rounded-t-lg">
+              <h5 className="font-semibold text-lg">Add Employee</h5>
               <MdClose
                 size={25}
                 onClick={() => close()}
                 className="cursor-pointer"
               />
             </div>
-            <div className="px-10 py-2 space-y-1.5">
-              <div className="flex items-center">
-                <label htmlFor="name" className="w-44">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  className="px-1 py-2 border  rounded-lg w-full  outline-none "
-                  value={addEmployee.name}
-                  onChange={(e) => addEmployeeChangeHandler(e)}
-                />
-              </div>
-              {error.nameError && error.nameError}
-              <div className="flex items-center">
-                <label htmlFor="email" className="w-44">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  className="px-1 py-2 border  rounded-lg w-full  outline-none "
-                  value={addEmployee.email}
-                  name="email"
-                  onChange={(e) => addEmployeeChangeHandler(e)}
-                />
-              </div>
-              {error.emailError && error.emailError}
-              <div className="flex items-center">
-                <label htmlFor="mobile" className="w-44">
-                  Mobile
-                </label>
-                <input
-                  type="tel"
-                  className="px-1 py-2 border  rounded-lg w-full  outline-none "
-                  value={addEmployee.mobile}
-                  name="mobile"
-                  onChange={(e) => addEmployeeChangeHandler(e)}
-                />
-              </div>
-              {error.mobileError && error.mobileError}
-              <div className="flex items-center">
-                <p>Select Gender</p>
-                <input
-                  type="radio"
-                  id="gender"
-                  name="gender"
-                  value={addEmployee.gender.male}
-                  onChange={(e) => addEmployeeChangeHandler(e)}
-                />
-                  <label htmlFor="course">Male</label>
-                <input
-                  type="radio"
-                  id="gender"
-                  name="gender"
-                  value={addEmployee.gender.female}
-                  onChange={(e) => addEmployeeChangeHandler(e)}
-                />
-                  <label htmlFor="course">Female</label>
-              </div>
-              {error.genderError && error.genderError}
-              <div className="flex items-start flex-col">
-                <p>Select Course</p>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="course"
-                    name="course"
-                    value={addEmployee.course.mca}
-                    onChange={(e) => addEmployeeChangeHandler(e)}
-                  />
-                  <label htmlFor="course">MCA</label>
-                </div>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="course"
-                    name="course"
-                    value={addEmployee.course.bsc}
-                    onChange={(e) => addEmployeeChangeHandler(e)}
-                  />
-                  <label htmlFor="course">BCA</label>
-                </div>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="course"
-                    name="course"
-                    value={addEmployee.course.bsc}
-                    onChange={(e) => addEmployeeChangeHandler(e)}
-                  />
-                  <label htmlFor="course">BSC</label>
+            <div className="grid grid-cols-2 items-center">
+              <div>
+                <div className="px-10 py-6 space-y-2">
+                  <div className="flex items-center">
+                    <label htmlFor="name" className="w-44">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      className="px-4 py-2 border rounded-lg w-full outline-none"
+                      value={addEmployee.name}
+                      onChange={(e) => addEmployeeChangeHandler(e)}
+                    />
+                  </div>
+                  <div className="flex items-center">
+                    <label htmlFor="email" className="w-44">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      className="px-4 py-2 border rounded-lg w-full outline-none"
+                      value={addEmployee.email}
+                      name="email"
+                      onChange={(e) => addEmployeeChangeHandler(e)}
+                    />
+                  </div>
+
+                  <div className="flex items-center">
+                    <label htmlFor="mobile" className="w-44">
+                      Mobile
+                    </label>
+                    <input
+                      type="tel"
+                      className="px-4 py-2 border rounded-lg w-full outline-none"
+                      value={addEmployee.mobile}
+                      name="mobile"
+                      onChange={(e) => addEmployeeChangeHandler(e)}
+                    />
+                  </div>
                 </div>
               </div>
-              {error.courseError && error.courseError}
-              <div className="flex items-center">
-                <p>Select Desgnination</p>
-                <select
-                  name="designation"
-                  id="designation"
-                  onChange={(e) => addEmployeeChangeHandler(e)}
-                >
-                  <option value="HR">HR</option>
-                  <option value="Manager">Manager</option>
-                  <option value="Sales">Sales</option>
-                </select>
+              <div className="px-10 py-6 space-y-2">
+                <div className="flex  flex-row  items-center">
+                  <p className="mr-2">Select Gender:</p>
+                  <input
+                    type="radio"
+                    id="male"
+                    name="gender"
+                    value="male"
+                    onChange={(e) => addEmployeeChangeHandler(e)}
+                  />
+                  <label htmlFor="male" className="mr-1">
+                    Male
+                  </label>
+                  <input
+                    type="radio"
+                    id="female"
+                    name="gender"
+                    value="female"
+                    onChange={(e) => addEmployeeChangeHandler(e)}
+                  />
+                  <label htmlFor="female">Female</label>
+                </div>
+                <div className="flex  flex-row space-x-3 items-center">
+                  <p>Select Course:</p>
+                  <div>
+                    <input
+                      type="checkbox"
+                      id="mca"
+                      name="course"
+                      value="mca"
+                      onChange={(e) => addEmployeeChangeHandler(e)}
+                    />
+                    <label htmlFor="mca" className="mr-4">
+                      MCA
+                    </label>
+                  </div>
+                  <div>
+                    <input
+                      type="checkbox"
+                      id="bca"
+                      name="course"
+                      value="bca"
+                      onChange={(e) => addEmployeeChangeHandler(e)}
+                    />
+                    <label htmlFor="bca" className="mr-4">
+                      BCA
+                    </label>
+                  </div>
+                  <div>
+                    <input
+                      type="checkbox"
+                      id="bsc"
+                      name="course"
+                      value="bsc"
+                      onChange={(e) => addEmployeeChangeHandler(e)}
+                    />
+                    <label htmlFor="bsc">BSC</label>
+                  </div>
+                </div>
+
+                <div className="flex items-center">
+                  <p className="mr-4">Select Designation:</p>
+                  <select
+                    name="designation"
+                    id="designation"
+                    onChange={(e) => addEmployeeChangeHandler(e)}
+                    className="px-4 py-2 border rounded-md"
+                  >
+                    <option value="HR">HR</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Sales">Sales</option>
+                  </select>
+                </div>
               </div>
             </div>
             <button
               onClick={handleCreateEmployee}
-              className="py-2 w-full bg-gray-800 text-white"
+              className="py-2 w-full bg-gray-800 text-white rounded-b-lg"
             >
               Create
             </button>
